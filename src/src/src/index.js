@@ -3,7 +3,6 @@ import Notiflix from 'notiflix';
 import { fetchCountries } from './fetchCountries';
 import './css/styles.css';
 
-
 const DEBOUNCE_DELAY = 300;
 const refs = {
   inputEl: document.querySelector('#search-box'),
@@ -22,19 +21,16 @@ function fetchByInput() {
   return fetchCountries(country).then(renderCountries).catch(showError);
 }
 
-// Очищення розмітки
 function clearMarkup() {
   refs.countriesList.innerHTML = '';
   refs.countriesInfo.innerHTML = '';
 }
 
-// Відображення помилки
 function showError() {
   clearMarkup();
   return Notiflix.Notify.failure('Oops, there is no country with that name');
 }
 
-// Варіанти рендерінгу згідно введених даних
 function renderCountries(countriesName) {
   clearMarkup();
   if (countriesName.length > 10) {
@@ -53,7 +49,8 @@ function renderCountries(countriesName) {
 function renderCountryIdentification(countriesName) {
   const markupCountry = countriesName
     .map(({ name, flags }) => {
-      return `<li class = "country-list__item"><img src="${flags.svg}" alt="${name.common}" width="60" height="45"><span class = "country-list__name">${name.official}</span></li>`;
+      return `<li class = "country-list__item"><img src="${flags.svg}" 
+      alt="${name.common}" width="60" height="45"><span class = "country-list__name">${name.official}</span></li>`;
     })
     .join('');
   refs.countriesList.innerHTML = markupCountry;
@@ -62,7 +59,8 @@ function renderCountryIdentification(countriesName) {
 function renderCountryData(countriesName) {
   const markupInfo = countriesName
     .map(({ capital, population, languages }) => {
-      return `<p class = "country-info__data"><b>Capital:</b> ${capital}</p><p class = "country-info__data"><b>Population:</b> ${population}</p><p class = "country-info__data"><b>Languages:</b> ${Object.values(
+      return `<p class = "country-info__data"><b>Capital:</b> ${capital}</p>
+      <p class = "country-info__data"><b>Population:</b> ${population}</p><p class = "country-info__data"><b>Languages:</b> ${Object.values(
         languages
       ).join(', ')}</p>`;
     })
